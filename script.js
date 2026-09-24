@@ -24,7 +24,7 @@ document.getElementById('rsvp-form').addEventListener('submit', (event) => {
   if (!input.reportValidity()) return;
   const count = Number(input.value);
   if (!Number.isInteger(count) || count < 1 || count > 99) return;
-  const message = `Hola Pablo y María del Carmen ❤️ Confirmamos nuestra asistencia a este día tan especial. ${count === 1 ? 'Asistiré 1 persona' : `Seremos ${count} personas`}. ¡Nos vemos el 27 de noviembre! 🥂`;
+  const message = `Hola Pablo y Carmen ❤️ Confirmamos nuestra asistencia a este día tan especial. ${count === 1 ? 'Asistiré 1 persona' : `Seremos ${count} personas`}. ¡Nos vemos el 27 de noviembre! 🥂`;
   window.location.href = `https://wa.me/595985768360?text=${encodeURIComponent(message)}`;
 });
 
@@ -39,3 +39,4 @@ copyButton.addEventListener('click', async () => {
     status.textContent = 'Podés seleccionar y copiar el alias: CI. 4740050';
   }
 });
+
