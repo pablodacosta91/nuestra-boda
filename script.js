@@ -18,13 +18,44 @@ if (updateCountdown() > 0) {
   const timer = setInterval(() => { if (updateCountdown() === 0) clearInterval(timer); }, 1000);
 }
 
-document.getElementById('rsvp-form').addEventListener('submit', (event) => {
+const invitationParams = new URLSearchParams(window.location.search);
+const family = (invitationParams.get('familia') || '').trim();
+const rawCapacity = invitationParams.get('cupos') || '';
+const personalized = invitationParams.has('familia') || invitationParams.has('cupos');
+const capacity = Number(rawCapacity);
+const validInvitation = !personalized || (family.length > 0 && family.length <= 120 && /^[1-9]\d?$/.test(rawCapacity));
+const rsvpForm = document.getElementById('rsvp-form');
+const invitationNote = document.createElement('p');
+invitationNote.id = 'invitation-note';
+if (personalized) {
+  rsvpForm.before(invitationNote);
+  if (validInvitation) {
+    invitationNote.textContent = `${family}: ${capacity === 1 ? 'te reservamos 1 lugar' : `les reservamos ${capacity} lugares`}.`;
+    const originalInput = document.getElementById('guests');
+    const select = document.createElement('select');
+    select.id = 'guests';
+    select.name = 'guests';
+    select.required = true;
+    select.setAttribute('aria-describedby', 'invitation-note');
+    for (let count = 1; count <= capacity; count++) {
+      select.add(new Option(String(count), String(count)));
+    }
+    select.value = String(capacity);
+    originalInput.replaceWith(select);
+  } else {
+    invitationNote.textContent = 'Este enlace está incompleto. Pedile a Pablo o Carmen que te reenvíen tu invitación personalizada.';
+    rsvpForm.hidden = true;
+  }
+}
+
+rsvpForm.addEventListener('submit', (event) => {
   event.preventDefault();
   const input = document.getElementById('guests');
   if (!input.reportValidity()) return;
   const count = Number(input.value);
-  if (!Number.isInteger(count) || count < 1 || count > 99) return;
-  const message = `Hola Pablo y Carmen ❤️ Confirmamos nuestra asistencia a este día tan especial. ${count === 1 ? 'Asistiré 1 persona' : `Seremos ${count} personas`}. ¡Nos vemos el 27 de noviembre! 🥂`;
+  if (!validInvitation || !Number.isInteger(count) || count < 1 || count > (personalized ? capacity : 99)) return;
+  const familyMessage = personalized ? ` Invitación para ${family} (${capacity} ${capacity === 1 ? 'lugar reservado' : 'lugares reservados'}).` : '';
+  const message = `Hola Pablo y Carmen ❤️${familyMessage} Confirmamos nuestra asistencia a este día tan especial. ${count === 1 ? 'Asistirá 1 persona' : `Seremos ${count} personas`}. ¡Nos vemos el 27 de noviembre! 🥂`;
   window.location.href = `https://wa.me/595985768360?text=${encodeURIComponent(message)}`;
 });
 

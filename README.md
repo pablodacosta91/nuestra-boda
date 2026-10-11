@@ -1,4 +1,4 @@
-# Invitación · Pablo & María del Carmen
+# Invitación · Pablo & Carmen
 
 Invitación responsive en HTML, CSS y JavaScript. No necesita instalación, compilación ni backend. Los recursos visuales están incluidos y no utiliza fuentes, bibliotecas ni rastreadores externos.
 
@@ -29,3 +29,13 @@ WhatsApp usa `595985768360` y agrega la cantidad seleccionada al mensaje. Cada i
 El regalo está cerrado inicialmente y se despliega al tocarlo. El alias y el teléfono forman parte del sitio público. No se especificó hora de la fiesta: la invitación indica “Después de la ceremonia”. También se celebra el primer cumpleaños de Luana.
 
 
+
+## Invitaciones por familia
+
+Después de subir index.html, styles.css y script.js actualizados, enviá enlaces como:
+
+https://pablodacosta91.github.io/nuestra-boda/?familia=Familia%20Gonzalez&cupos=4
+
+Cambiá el nombre después de familia= y la cantidad después de cupos=. Usá %20 para los espacios (por ejemplo Ana%20y%20Luis). Los cupos admitidos son enteros entre 1 y 99. El selector comienza en el cupo reservado y solo permite elegir de 1 hasta ese máximo. WhatsApp incluye el nombre, el cupo y la cantidad confirmada.
+
+El enlace sin parámetros mantiene la confirmación general. Si se incluye solo uno de los parámetros o un cupo inválido, se solicita un enlace corregido y se bloquea el formulario. Estos enlaces son una personalización sencilla: los parámetros se pueden modificar y no hay validación en un servidor ni registro automático de confirmaciones.
