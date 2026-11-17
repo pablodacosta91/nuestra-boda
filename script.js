@@ -1,7 +1,7 @@
 'use strict';
 
 // Paraguay, UTC−03:00. El desplazamiento explícito evita usar la zona del invitado.
-const weddingDate = new Date('2026-11-27T20:30:00-03:00').getTime();
+const weddingDate = new Date('2026-11-27T20:00:00-03:00').getTime();
 const units = ['days', 'hours', 'minutes', 'seconds'];
 function updateCountdown() {
   const remaining = Math.max(0, weddingDate - Date.now());
